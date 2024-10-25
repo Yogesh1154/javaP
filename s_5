@@ -1,0 +1,124 @@
+import java.util.Scanner;
+
+public class MatrixOperations {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("Menu:");
+            System.out.println("1. Matrix Addition");
+            System.out.println("2. Matrix Multiplication");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    matrixAddition(scanner);
+                    break;
+                case 2:
+                    matrixMultiplication(scanner);
+                    break;
+                case 3:
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        } while (choice != 3);
+
+        scanner.close();
+    }
+
+    private static void matrixAddition(Scanner scanner) {
+        System.out.print("Enter number of rows for matrices: ");
+        int rows = scanner.nextInt();
+        System.out.print("Enter number of columns for matrices: ");
+        int cols = scanner.nextInt();
+
+        int[][] matrixA = new int[rows][cols];
+        int[][] matrixB = new int[rows][cols];
+        int[][] sumMatrix = new int[rows][cols];
+
+        // Input for first matrix
+        System.out.println("Enter elements of first matrix:");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                matrixA[i][j] = scanner.nextInt();
+            }
+        }
+
+        // Input for second matrix
+        System.out.println("Enter elements of second matrix:");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                matrixB[i][j] = scanner.nextInt();
+            }
+        }
+
+        // Matrix addition
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                sumMatrix[i][j] = matrixA[i][j] + matrixB[i][j];
+            }
+        }
+
+        // Display result
+        System.out.println("Result of Matrix Addition:");
+        displayMatrix(sumMatrix);
+    }
+
+    private static void matrixMultiplication(Scanner scanner) {
+        System.out.print("Enter number of rows for first matrix: ");
+        int rowsA = scanner.nextInt();
+        System.out.print("Enter number of columns for first matrix: ");
+        int colsA = scanner.nextInt();
+
+        System.out.print("Enter number of columns for second matrix: ");
+        int colsB = scanner.nextInt();
+
+        int[][] matrixA = new int[rowsA][colsA];
+        int[][] matrixB = new int[colsA][colsB];
+        int[][] productMatrix = new int[rowsA][colsB];
+
+        // Input for first matrix
+        System.out.println("Enter elements of first matrix:");
+        for (int i = 0; i < rowsA; i++) {
+            for (int j = 0; j < colsA; j++) {
+                matrixA[i][j] = scanner.nextInt();
+            }
+        }
+
+        // Input for second matrix
+        System.out.println("Enter elements of second matrix:");
+        for (int i = 0; i < colsA; i++) {
+            for (int j = 0; j < colsB; j++) {
+                matrixB[i][j] = scanner.nextInt();
+            }
+        }
+
+        // Matrix multiplication
+        for (int i = 0; i < rowsA; i++) {
+            for (int j = 0; j < colsB; j++) {
+                productMatrix[i][j] = 0;
+                for (int k = 0; k < colsA; k++) {
+                    productMatrix[i][j] += matrixA[i][k] * matrixB[k][j];
+                }
+            }
+        }
+
+        // Display result
+        System.out.println("Result of Matrix Multiplication:");
+        displayMatrix(productMatrix);
+    }
+
+    private static void displayMatrix(int[][] matrix) {
+        for (int[] row : matrix) {
+            for (int value : row) {
+                System.out.print(value + " ");
+            }
+            System.out.println();
+        }
+    }
+}
